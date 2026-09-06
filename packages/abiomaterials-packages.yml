@@ -1,0 +1,29 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  Registry searches on 2026-09-06 - registry.npmjs.org (queries "abio materials"
+  and "a-bio"), pypi.org (/pypi/abio/json and /pypi/abiomaterials/json, both
+  HTTP 404), and the GitHub user/org search API for "abiomaterials OR
+  a-bio-materials" (total_count 0). Both company sites were also searched for an
+  SDK, CLI or download link.
+name: Abiomaterials packages and SDKs
+description: >-
+  No first-party client library exists in any registry, and the company has no
+  GitHub organisation. This is a checked absence, not an unchecked field.
+package_count: 0
+official_sdk_count: 0
+packages: []
+registries_checked:
+- registry: npm
+  result: no first-party package
+  status: 200
+- registry: pypi
+  result: no package (abio, abiomaterials both 404)
+  status: 404
+- registry: github
+  result: no organisation or user matches (total_count 0)
+  status: 200
+note: >-
+  Registries queried unauthenticated; version and published fields are omitted
+  because there is no package to carry them.
+checked: '2026-09-06'

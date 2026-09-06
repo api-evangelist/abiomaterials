@@ -1,0 +1,107 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Observed responses and response headers from https://a-biousa.com/wp-json/
+  on 2026-09-06. The provider publishes no API documentation, so every
+  convention below was read off the wire rather than off a docs page.
+name: Abiomaterials API conventions
+description: >-
+  Cross-cutting runtime semantics for the only machine-readable surface this
+  company serves. These are WordPress/WooCommerce platform conventions, not
+  conventions the company designed or documents; they are recorded because they
+  are what an agent calling this host will actually encounter.
+documented: false
+authentication:
+  style: anonymous for reads; WordPress cookie + X-WP-Nonce for writes
+  see: authentication/abiomaterials-authentication.yml
+versioning:
+  style: namespace-in-path
+  pattern: /wp-json/<namespace>/<version>/<resource>
+  observed:
+  - wp/v2
+  - wc/store/v1
+  - wc/v3
+  - g99-webmcp/v1
+  - mcp
+  note: >-
+    Versions are set by the platform and its plugins. There is no published
+    version policy, no version header, and no stated support window.
+pagination:
+  style: page-number
+  params:
+  - name: page
+    default: 1
+  - name: per_page
+    default: 10
+    max: 100
+    note: >-
+      Enforced. per_page=999 returned HTTP 400 rest_invalid_param with the
+      message "per_page must be between 1 (inclusive) and 100 (inclusive)".
+  response_headers:
+  - X-WP-Total
+  - X-WP-TotalPages
+  link_header: 'Link: <...page=2>; rel="next"'
+  evidence: >-
+    GET /wp-json/wc/store/v1/products?per_page=2&page=1 returned
+    X-WP-Total: 39, X-WP-TotalPages: 20 and a Link rel="next".
+error_envelope:
+  format: platform-json
+  rfc9457: false
+  shape: '{"code": "<string>", "message": "<human string>", "data": {"status": <int>}}'
+  detail_extension: >-
+    Validation failures add data.params and data.details, each keyed by the
+    offending parameter, with a nested code/message per field.
+  see: errors/abiomaterials-error-codes.yml
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  note: >-
+    No Idempotency-Key header, no request-id de-duplication and no replay
+    protection is offered or documented on any endpoint. The anonymous surface
+    is read-only, so the exposure is limited to the cart/checkout routes
+    (POST /wc/store/v1/cart/items, POST /wc/store/v1/checkout), which carry no
+    idempotency mechanism at all.
+reversibility:
+  grade: na
+  reason: >-
+    The surface an agent can reach without credentials is read-only. Every
+    anonymous route observed is GET (Allow: GET on the products collection);
+    the only write routes are the WooCommerce cart/checkout flow and gated
+    WordPress admin routes, neither reachable nor documented for API consumers.
+  write_surfaces: []
+  note: >-
+    No cancel, refund, void, restore or undo operation is documented anywhere,
+    and no window is stated. Nothing is asserted here that the provider has not
+    published - the honest reading is that reversibility does not apply to the
+    public surface rather than that it is absent from a write API.
+dry_run_mode:
+  supported: false
+  note: na - no public write surface.
+rate_limit_signaling:
+  headers: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header was present on any
+    observed 200 or 4xx response. See rate-limits/abiomaterials-rate-limits.yml.
+request_tracing:
+  request_id_header: null
+  note: No correlation or request-id header is returned.
+field_selection:
+  supported: partial
+  params:
+  - _fields
+  note: >-
+    The WordPress REST platform supports _fields for sparse responses; it is not
+    documented by this provider.
+content_negotiation:
+  request: application/json
+  response: application/json; charset=UTF-8
+  well_known_catalog: application/linkset+json
+cross_links:
+  errors: errors/abiomaterials-error-codes.yml
+  lifecycle: lifecycle/abiomaterials-lifecycle.yml
+  authentication: authentication/abiomaterials-authentication.yml
+  rate_limits: rate-limits/abiomaterials-rate-limits.yml
+  mcp: mcp/abiomaterials-mcp.yml
+checked: '2026-09-06'

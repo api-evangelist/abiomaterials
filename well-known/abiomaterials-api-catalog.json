@@ -1,0 +1,19 @@
+{
+    "linkset": [
+        {
+            "anchor": "https://a-biousa.com/",
+            "https://a-biousa.com/wp-json/g99-webmcp/v1/manifest": [
+                {
+                    "rel": "service-desc",
+                    "type": "application/json"
+                }
+            ],
+            "https://a-biousa.com/wp-json/g99-webmcp/v1/execute": [
+                {
+                    "rel": "service-endpoint",
+                    "type": "application/json"
+                }
+            ]
+        }
+    ]
+}

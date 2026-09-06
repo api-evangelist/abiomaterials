@@ -1,0 +1,59 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Searched both company hosts for a versioning policy, deprecation policy,
+  SLA, status page and changelog; probed the live surface for version and
+  deprecation signalling. Nothing was found - the absences below are measured,
+  not assumed.
+name: Abiomaterials API lifecycle
+description: >-
+  A-Bio Materials runs no developer programme, so it publishes none of the
+  lifecycle commitments the rating looks for. Versioning exists only as the
+  path namespaces of the WordPress platform underneath the storefront.
+versioning:
+  policy_published: false
+  scheme: namespace-in-path (/wp-json/<namespace>/v<N>/)
+  current:
+  - wp/v2
+  - wc/store/v1
+  - g99-webmcp/v1
+  note: Set by the platform and its plugins; no policy or support window is stated.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No Deprecation or Sunset response header was observed on any endpoint, and
+    no deprecation page exists on either host.
+status_page:
+  published: false
+  url: null
+  note: >-
+    No status.* subdomain, no /status page, and no third-party status page
+    (statuspage.io, instatus, betteruptime) was found for either domain.
+sla:
+  published: false
+  url: null
+changelog:
+  published: false
+  url: null
+  note: >-
+    The storefront has a blog at https://a-biousa.com/blogs/ (HTTP 200) but it
+    is marketing content, not a dated API changelog.
+support:
+  channel: https://a-biousa.com/contact-us/
+  type: contact form
+evidence:
+- url: https://a-biousa.com/blogs/
+  status: 200
+- url: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=2
+  status: 200
+  note: No Deprecation, Sunset or version header on the response.
+- url: https://a-bio.co.kr/
+  status: 200
+  note: >-
+    Korean parent site; a soft-404 catch-all serves HTTP 200 for every path, so
+    no path-based claim about it can be made from status codes alone.
+checked: '2026-09-06'

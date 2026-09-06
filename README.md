@@ -64,5 +64,34 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Abiomaterials is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://equityzen.com/company/abiomaterials
+A-Bio Materials Co., Ltd. (에이바이오머티리얼즈) is a South Korean life-science company, founded in
+2020, that develops and manufactures exosome-derived bioactive materials for cosmetics,
+aesthetics and medical devices. Its North American arm, ABio materials USA Inc. of Tustin,
+California, is the official importer and distributor for the region and operates the
+company's English-language storefront.
+
+- Company site (Korea): https://a-bio.co.kr/
+- North American storefront: https://a-biousa.com/
+- Secondary-market listing this record was harvested from: https://equityzen.com/company/abiomaterials
+
+## What this profile found
+
+A-Bio Materials runs **no developer programme**. There is no developer portal, API
+documentation, API reference, SDK, CLI, sandbox, status page or changelog, and no OpenAPI,
+Swagger, GraphQL, AsyncAPI, gRPC or WSDL contract on any host.
+
+What the company does serve — verified live on 2026-09-06 — are machine-readable surfaces
+produced by the WordPress / WooCommerce stack behind its North American storefront. These are
+**platform-authored**, not designed by the company, and they describe site content and the
+product catalogue rather than a business API:
+
+- An RFC 9727 API catalog at `https://a-biousa.com/.well-known/api-catalog` (the only
+  `/.well-known/` document served on any of the four hosts probed).
+- A live, anonymous WebMCP tool surface — manifest plus execute endpoint — declaring six
+  tools with JSON Schema inputs. `get_site_context` was invoked anonymously and returned
+  real data, so this is a verified reachable agent surface.
+- A JSON-RPC MCP endpoint that is auth-gated: `tools/list` returns HTTP 401.
+- The WooCommerce Store API, serving 39 products with prices and stock anonymously.
+
+Note that the Korean parent host `a-bio.co.kr` is a **soft-404 catch-all** — every path
+returns HTTP 200 with the same HTML error page — so its status codes carry no information.

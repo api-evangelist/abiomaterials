@@ -1,0 +1,96 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Live probes of https://a-biousa.com/ on 2026-09-06, plus the company's own
+  homepage copy for the regulatory statements at the bottom of this file.
+name: Abiomaterials conformance assertions
+description: >-
+  What this provider's live surface actually conforms to. Every entry is
+  evidenced by a fetched URL; nothing is asserted from a marketing claim.
+conformance:
+- id: rfc9727-api-catalog
+  name: RFC 9727 - An API Catalog for the Web (/.well-known/api-catalog)
+  conforms: true
+  evidence: https://a-biousa.com/.well-known/api-catalog
+  note: >-
+    Returns HTTP 200 with Content-Type application/linkset+json and a linkset[]
+    carrying an anchor plus rel service-desc and service-endpoint links. Saved
+    verbatim to well-known/abiomaterials-api-catalog.json.
+- id: rfc9264-linkset
+  name: RFC 9264 - Linkset (application/linkset+json)
+  conforms: true
+  evidence: https://a-biousa.com/.well-known/api-catalog
+  note: The api-catalog document is served as a conformant JSON linkset.
+- id: json-schema-tool-inputs
+  name: JSON Schema tool input descriptions
+  conforms: true
+  evidence: https://a-biousa.com/wp-json/g99-webmcp/v1/manifest
+  note: >-
+    All six declared tools carry a JSON Schema inputSchema with type, properties
+    and required.
+- id: mcp
+  name: Model Context Protocol (JSON-RPC transport)
+  conforms: unverified
+  evidence: https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server
+  note: >-
+    A JSON-RPC MCP endpoint is registered and accepts POST/GET/DELETE, but
+    tools/list returned HTTP 401 rest_forbidden, so protocol conformance could
+    not be verified anonymously. Recorded as unverified rather than true.
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: https://a-biousa.com/openapi.json
+  note: >-
+    HTTP 404. Probed on all four hosts across /openapi.json, /openapi.yaml,
+    /swagger.json, /api-docs, /docs and /redoc; no document parses as OpenAPI or
+    Swagger anywhere.
+- id: rfc9457-problem-details
+  name: RFC 9457 - Problem Details for HTTP APIs
+  conforms: false
+  evidence: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=999
+  note: >-
+    Errors use the WordPress {code,message,data.status} envelope, not
+    application/problem+json.
+- id: rfc9116-security-txt
+  name: RFC 9116 - security.txt
+  conforms: false
+  evidence: https://a-biousa.com/.well-known/security.txt
+  note: HTTP 404 on both a-biousa.com hosts; soft-404 on both a-bio.co.kr hosts.
+- id: a2a-agent-card
+  name: A2A Agent Card
+  conforms: false
+  evidence: https://a-biousa.com/.well-known/agent-card.json
+  note: HTTP 404; /.well-known/agent.json also 404. No card is served on any host.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: https://a-biousa.com/.well-known/oauth-authorization-server
+  note: HTTP 404. No OAuth or OIDC discovery document on any host.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: https://a-biousa.com/wp-json/
+  note: >-
+    No event, streaming or customer webhook surface. The only webhook route in
+    the index (POST /g99-control/v1/webhook) is the site-management plugin's own
+    control plane, not a subscribable event API.
+domain_standards:
+  applicable: false
+  note: >-
+    The provider's market is exosome-derived cosmetic and medical biomaterials -
+    a manufacturing and regulatory market with no API-level interchange standard
+    of the SCIM / OData / HL7 / OpenRTB kind. No domain-standard signature was
+    looked for beyond that, and none is invented to fill the slot. Reward-only
+    check; correctly scores nothing rather than penalising.
+regulatory_context:
+  note: >-
+    Recorded as context, NOT as a published API compliance programme and NOT
+    wired to a Compliance pointer. The company's own homepage states products are
+    "manufactured by ABIO materials Co. in Korea" and that "ABIO materials USA
+    Inc. serves as the official importer and distributor across North America,
+    maintaining full global regulatory compliance, with all products listed with
+    the U.S. Food and Drug Administration (FDA)". These are product-regulatory
+    statements about cosmetics and medical materials. No SOC 2, ISO 27001, PCI,
+    HIPAA or FedRAMP attestation, and no trust centre, exists on either host.
+  evidence: https://a-biousa.com/
+checked: '2026-09-06'

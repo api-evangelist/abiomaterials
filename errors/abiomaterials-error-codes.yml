@@ -1,0 +1,66 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Error bodies observed live from https://a-biousa.com/wp-json/ on 2026-09-06.
+  No OpenAPI exists to derive 4xx/5xx responses from and the provider publishes
+  no error reference, so this catalogue holds only codes that were actually
+  returned to a real request.
+name: Abiomaterials error catalogue
+description: >-
+  The observed error envelope and the error codes seen on the public surface.
+  Codes are the WordPress / WooCommerce REST platform's own; they are recorded
+  because they are what a caller receives, not because the company documents them.
+format: platform-json
+rfc9457: false
+documented: false
+envelope:
+  shape: '{"code": "<string>", "message": "<string>", "data": {"status": <int>}}'
+  status_source: data.status mirrors the HTTP status code
+  validation_extension: >-
+    data.params and data.details are added on parameter validation failures,
+    each keyed by parameter name.
+error_count: 5
+errors:
+- code: rest_no_route
+  http_status: 404
+  message: No route was found matching the URL and request method.
+  meaning: The requested path is not a registered REST route.
+  remediation: >-
+    Read the route index at https://a-biousa.com/wp-json/ and use a registered
+    namespace and path.
+  observed_at: https://a-biousa.com/wp-json/wp/v2/nope
+- code: rest_forbidden
+  http_status: 401
+  message: Sorry, you are not allowed to do that.
+  meaning: >-
+    The route requires an authenticated WordPress session. Returned with no
+    WWW-Authenticate header, so no challenge is advertised.
+  remediation: >-
+    Not remediable by a public caller; the route is administrative.
+  observed_at: https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server
+- code: rest_invalid_param
+  http_status: 400
+  message: 'Invalid parameter(s): <name>'
+  meaning: A query parameter failed schema validation.
+  remediation: >-
+    Read data.details.<param>.message for the exact bound; e.g. per_page must be
+    between 1 and 100.
+  observed_at: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=999
+  nested_codes:
+  - rest_out_of_bounds
+- code: woocommerce_rest_product_invalid_id
+  http_status: 404
+  message: Invalid product ID.
+  meaning: The product id in the path does not resolve to a published product.
+  remediation: Resolve ids from GET /wp-json/wc/store/v1/products first.
+  observed_at: https://a-biousa.com/wp-json/wc/store/v1/products/999999
+- code: tool_not_found
+  http_status: 404
+  message: "Tool '<name>' is not supported on the server side."
+  meaning: >-
+    The WebMCP execute endpoint was asked for a tool that is not in the manifest.
+  remediation: >-
+    Read https://a-biousa.com/wp-json/g99-webmcp/v1/manifest and call only the
+    six tools it declares.
+  observed_at: https://a-biousa.com/wp-json/g99-webmcp/v1/execute
+checked: '2026-09-06'

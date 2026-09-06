@@ -1,0 +1,147 @@
+generated: '2026-09-06'
+method: probed
+source: https://a-biousa.com/wp-json/g99-webmcp/v1/manifest
+name: Abiomaterials WebMCP tool surface
+description: >-
+  ABio materials USA Inc. serves a live, anonymous, agent-callable WebMCP surface
+  from its WordPress storefront at a-biousa.com. It was discovered through the
+  RFC 9727 catalog at https://a-biousa.com/.well-known/api-catalog, which names a
+  service-desc (the tool manifest) and a service-endpoint (the execute endpoint).
+  The manifest was fetched verbatim (HTTP 200, application/json) and saved to
+  mcp/abiomaterials-webmcp-manifest.json; six tools are declared, each with a real
+  JSON Schema inputSchema, plus an agent_instructions block. Both the manifest and
+  the execute endpoint answer unauthenticated — get_site_context was invoked
+  anonymously and returned real site data, so this is a verified reachable agent
+  surface, not a claim.
+authorship: platform
+authorship_note: >-
+  This surface is PLATFORM-AUTHORED, not designed by the company. It is produced
+  by a WordPress plugin (namespace g99-webmcp / g99-mcp) installed on the
+  company's storefront, and its tools expose site content and pages, not the
+  company's biomaterials products as a business API. Recorded because it is
+  genuinely served, reachable and callable by an agent today - not as evidence
+  that A-Bio Materials operates a developer program. It does not.
+deployment:
+  mode: remote
+  endpoint: https://a-biousa.com/wp-json/g99-webmcp/v1/execute
+  auth: none
+  verified: probed
+  note: >-
+    The WebMCP endpoint uses the manifest+execute HTTP shape (POST
+    {"tool": "...", "arguments": {...}}) and returns MCP-style
+    {"content":[{"type":"text","text":"..."}]} envelopes. It is NOT JSON-RPC.
+    A second, JSON-RPC MCP endpoint also exists on this host at
+    https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server (POST/GET/DELETE)
+    but is auth-gated: a tools/list call returned HTTP 401
+    {"code":"rest_forbidden"} with no WWW-Authenticate header, so its live tool
+    schemas require authenticated introspection and were NOT captured.
+endpoints:
+- url: https://a-biousa.com/wp-json/g99-webmcp/v1/manifest
+  method: GET
+  status: 200
+  auth: none
+  role: tool manifest (service-desc)
+- url: https://a-biousa.com/wp-json/g99-webmcp/v1/execute
+  method: POST
+  status: 200
+  auth: none
+  role: tool execution (service-endpoint)
+- url: https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server
+  method: POST
+  status: 401
+  auth: wordpress-session
+  role: JSON-RPC MCP server (gated; tools/list refused)
+- url: https://a-biousa.com/wp-json/wp-abilities/v1/abilities
+  method: GET
+  status: 401
+  auth: wordpress-session
+  role: WordPress Abilities API registry (gated)
+- url: https://a-biousa.com/wp-json/g99-webmcp/v1/nonce
+  method: GET
+  status: 200
+  auth: none
+  role: issues a short-lived X-WP-Nonce for write-capable calls
+status: live
+transport: http
+tool_count: 6
+tools:
+- name: get_site_context
+  description: >-
+    Returns site identity (name, tagline, URL), navigation menus, and the list of
+    available tools. The manifest instructs agents to call this first.
+  input_schema:
+    type: object
+    properties: {}
+  rest: /wp-json/g99-webmcp/v1/site-context
+- name: search_site
+  description: >-
+    Deep-searches all content on the site including Elementor widgets, ACF custom
+    fields and post meta; returns matching pages with excerpts.
+  input_schema:
+    type: object
+    properties:
+      query:
+        type: string
+      limit:
+        type: number
+    required:
+    - query
+  rest: /wp-json/g99-webmcp/v1/search
+- name: discover_site_content
+  description: >-
+    Browses all public pages/posts grouped by category (services, products,
+    resources, pricing, booking, contact, locations, providers, FAQs, other).
+  input_schema:
+    type: object
+    properties:
+      limit:
+        type: number
+  rest: /wp-json/g99-webmcp/v1/discover
+- name: get_public_page_details
+  description: Fetches the full content of a page/post by numeric WordPress ID.
+  input_schema:
+    type: object
+    properties:
+      id:
+        type: number
+    required:
+    - id
+  rest: /wp-json/g99-webmcp/v1/page
+- name: get_page_by_url
+  description: Fetches the full content of a page by URL or slug.
+  input_schema:
+    type: object
+    properties:
+      url:
+        type: string
+    required:
+    - url
+  rest: /wp-json/g99-webmcp/v1/page-by-url
+- name: get_full_sitemap
+  description: Lists every public page and post with ID, URL, title and type.
+  input_schema:
+    type: object
+    properties:
+      limit:
+        type: number
+  rest: /wp-json/g99-webmcp/v1/sitemap
+agent_instructions: >-
+  Verbatim from the manifest: "CRITICAL RULES FOR AUTO MODEL: 1. NEVER guess or
+  use outside knowledge. 2. You MUST always call `search_site` with a simple
+  keyword first. 3. You MUST call `get_public_page_details` on the result ID to
+  read the exact text. 4. ONLY answer using the exact details found in the page
+  text."
+evidence:
+- url: https://a-biousa.com/.well-known/api-catalog
+  status: 200
+  note: RFC 9727 linkset that led to the manifest.
+- url: https://a-biousa.com/wp-json/g99-webmcp/v1/manifest
+  status: 200
+  note: Six tools with inputSchema, saved verbatim.
+- url: https://a-biousa.com/wp-json/g99-webmcp/v1/execute
+  status: 200
+  note: Anonymous POST of get_site_context returned real site data.
+- url: https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server
+  status: 401
+  note: JSON-RPC tools/list refused - rest_forbidden.
+checked: '2026-09-06'

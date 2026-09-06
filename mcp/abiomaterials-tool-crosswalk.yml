@@ -1,0 +1,91 @@
+generated: '2026-09-06'
+method: derived
+source: >-
+  mcp/abiomaterials-webmcp-manifest.json (fetched verbatim) bound against the
+  live WordPress REST route index at https://a-biousa.com/wp-json/ (HTTP 200,
+  1,002 routes), which is the only machine-readable route inventory this
+  provider serves.
+name: Abiomaterials MCP tool to REST crosswalk
+description: >-
+  Binds each WebMCP tool to the REST route that backs it. NOTE ON SHAPE - the
+  provider publishes NO OpenAPI, so `rest:` carries live REST route templates
+  read from the WordPress route index rather than operationIds. Every binding
+  below was confirmed by name and by presence in that index; nothing here is
+  inferred from prose. Confidence is high for the six g99-webmcp tools because
+  each tool has a same-named GET route in the same namespace (verified in the
+  route index) and both were observed returning the same payload shape:
+  get_site_context via execute and GET /g99-webmcp/v1/site-context returned
+  identical site-context JSON.
+surfaces:
+  openapi: null
+  openapi_note: No OpenAPI, Swagger, GraphQL or AsyncAPI document is published on any host.
+  rest_index: https://a-biousa.com/wp-json/
+  mcp_manifest: https://a-biousa.com/wp-json/g99-webmcp/v1/manifest
+  mcp_execute: https://a-biousa.com/wp-json/g99-webmcp/v1/execute
+  mcp_jsonrpc: https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server
+  mcp_jsonrpc_gated: true
+  graphql: null
+crosswalk:
+- tool: get_site_context
+  category: discovery
+  rest:
+  - GET /wp-json/g99-webmcp/v1/site-context
+  binding: one-to-one
+  confidence: high
+- tool: search_site
+  category: search
+  rest:
+  - GET /wp-json/g99-webmcp/v1/search
+  binding: one-to-one
+  confidence: high
+- tool: discover_site_content
+  category: discovery
+  rest:
+  - GET /wp-json/g99-webmcp/v1/discover
+  binding: one-to-one
+  confidence: high
+- tool: get_public_page_details
+  category: content
+  rest:
+  - GET /wp-json/g99-webmcp/v1/page
+  binding: one-to-one
+  confidence: high
+- tool: get_page_by_url
+  category: content
+  rest:
+  - GET /wp-json/g99-webmcp/v1/page-by-url
+  binding: one-to-one
+  confidence: high
+- tool: get_full_sitemap
+  category: discovery
+  rest:
+  - GET /wp-json/g99-webmcp/v1/sitemap
+  binding: one-to-one
+  confidence: high
+mcp_only: []
+rest_only:
+- route: GET /wp-json/wc/store/v1/products
+  reason: >-
+    The WooCommerce Store API serves the company's real product catalogue
+    (39 products, X-WP-Total observed) anonymously; no WebMCP tool reaches it,
+    so an agent using the MCP surface cannot read prices or stock.
+- route: GET /wp-json/wc/store/v1/products/categories
+  reason: Product taxonomy; no backing tool.
+- route: GET /wp-json/wc/store/v1/products/reviews
+  reason: Product reviews; no backing tool.
+- route: GET /wp-json/wc/store/v1/products/collection-data
+  reason: Faceted aggregate data; no backing tool.
+- route: GET /wp-json/wp/v2/posts
+  reason: Blog posts via the WordPress content API; no backing tool.
+- route: GET /wp-json/wp/v2/pages
+  reason: Pages via the WordPress content API; reachable only through the tools' own resolver.
+coverage:
+  mcp_tools: 6
+  tools_bound_to_rest: 6
+  tools_unbound: 0
+  public_rest_surfaces_uncovered_by_tools: 6
+  note: >-
+    The largest gap is commerce: the tool set is a content/search surface only,
+    while the provider's most valuable anonymous REST data (the product
+    catalogue with prices) has no tool binding.
+checked: '2026-09-06'

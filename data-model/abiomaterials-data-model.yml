@@ -1,0 +1,95 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  OPTIONS https://a-biousa.com/wp-json/wc/store/v1/products (HTTP 200), whose
+  response carries the live JSON Schema for the product resource (36
+  properties), plus the route index at https://a-biousa.com/wp-json/.
+name: Abiomaterials public data model
+description: >-
+  The entity graph an agent can actually read from this provider without
+  credentials. It is the WooCommerce Store API model as deployed on the
+  company's storefront - the schema was read off the live endpoint, not
+  assumed from the platform's documentation.
+root_entity: product
+entities:
+- name: product
+  endpoint: GET /wp-json/wc/store/v1/products
+  schema_source: OPTIONS /wp-json/wc/store/v1/products (schema.title "product")
+  property_count: 36
+  identifier: id (integer)
+  key_fields:
+  - id
+  - name
+  - slug
+  - sku
+  - type
+  - permalink
+  - description
+  - short_description
+  - prices
+  - is_in_stock
+  - is_purchasable
+  - stock_availability
+  - average_rating
+  - review_count
+  instance_count_observed: 39
+  instance_count_evidence: 'X-WP-Total: 39 on GET /wp-json/wc/store/v1/products'
+- name: product_category
+  endpoint: GET /wp-json/wc/store/v1/products/categories
+- name: product_tag
+  endpoint: GET /wp-json/wc/store/v1/products/tags
+- name: product_brand
+  endpoint: GET /wp-json/wc/store/v1/products/brands
+- name: product_attribute
+  endpoint: GET /wp-json/wc/store/v1/products/attributes
+- name: product_review
+  endpoint: GET /wp-json/wc/store/v1/products/reviews
+- name: post
+  endpoint: GET /wp-json/wp/v2/posts
+- name: page
+  endpoint: GET /wp-json/wp/v2/pages
+relationships:
+- from: product
+  to: product_category
+  type: has_many
+  via: categories[]
+- from: product
+  to: product_tag
+  type: has_many
+  via: tags[]
+- from: product
+  to: product_brand
+  type: has_many
+  via: brands[]
+- from: product
+  to: product_attribute
+  type: has_many
+  via: attributes[]
+- from: product
+  to: product
+  type: belongs_to
+  via: parent (integer id of the parent product, for variations)
+- from: product
+  to: product
+  type: has_many
+  via: variations[] (variation ids)
+- from: product
+  to: product_review
+  type: has_many
+  via: review_count / GET products/reviews?product_id=
+- from: product_review
+  to: product
+  type: belongs_to
+  via: product_id
+identifier_scheme:
+  style: opaque integers
+  prefixed: false
+  note: >-
+    All resources use bare integer WordPress post IDs. There is no typed or
+    prefixed id scheme, so an id carries no indication of which collection it
+    belongs to.
+money:
+  representation: >-
+    prices is an object expressed "using the smallest unit of the currency"
+    (verbatim from the live schema), with currency metadata alongside.
+checked: '2026-09-06'

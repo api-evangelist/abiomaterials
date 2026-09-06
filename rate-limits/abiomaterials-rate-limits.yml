@@ -1,0 +1,50 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Response headers observed on live 200 and 4xx responses from
+  https://a-biousa.com/wp-json/ on 2026-09-06, plus a search of both company
+  hosts for any published limit. Nothing is documented anywhere.
+name: Abiomaterials rate limits
+description: >-
+  No rate limits are published and none are signalled at runtime. The company
+  runs no developer programme, so there is no limits page to read; the live
+  surface returns no rate-limit headers of any family on success or on error.
+documented: false
+docs: null
+limit_count: 0
+limits: []
+response_headers:
+  observed: []
+  checked_for:
+  - RateLimit-Limit
+  - RateLimit-Remaining
+  - RateLimit-Reset
+  - RateLimit-Policy
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  - Retry-After
+  note: >-
+    None present. Observed response headers on a 200 were limited to
+    x-robots-tag, x-wp-total, x-wp-totalpages, link, allow and
+    strict-transport-security.
+exhaustion_status: unknown
+related_bounds:
+  - name: per_page ceiling
+    value: 100
+    scope: every paginated collection
+    enforcement: >-
+      HTTP 400 rest_invalid_param - "per_page must be between 1 (inclusive) and
+      100 (inclusive)". This is a page-size bound, NOT a rate limit, and is
+      recorded separately so it is not mistaken for one.
+    evidence: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=999
+note: >-
+  An honest zero. A managed WordPress host almost certainly applies some edge
+  throttling, but nothing was observed and nothing is published, so no limit is
+  asserted here.
+evidence:
+- url: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=2&page=1
+  status: 200
+- url: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=999
+  status: 400
+checked: '2026-09-06'

@@ -1,23 +1,165 @@
 aid: abiomaterials
-name: Abiomaterials
-description: 'Abiomaterials is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+name: A-Bio Materials
+description: >-
+  A-Bio Materials Co., Ltd. (에이바이오머티리얼즈) is a South Korean life-science company,
+  founded in 2020 and led by founder and CEO Sijun Park, that develops and manufactures
+  exosome-derived bioactive materials for cosmetics, aesthetics and medical devices. It
+  produces plant-, human- and microbial-derived exosome formulations and PDRN raw
+  materials through its own Exo-traction, Celltivation and Escentraction purification and
+  cultivation processes, supplying skincare and medical-device manufacturers with
+  ingredients for cell signalling, inflammation reduction, collagen synthesis and tissue
+  regeneration. Its North American arm, ABio materials USA Inc. of Tustin, California, is
+  the official importer and distributor for the region and operates the company's
+  English-language storefront. A-Bio Materials runs no developer programme and publishes
+  no API specification; the machine-readable surfaces recorded in this profile are the
+  WordPress, WooCommerce and WebMCP endpoints its North American storefront serves.
+image: https://a-biousa.com/storage/2026/01/social-share-by-a-bio-usa-materials-in-tustin-ca.png
 url: https://raw.githubusercontent.com/api-evangelist/abiomaterials/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
+position: Producing
 specificationVersion: '0.20'
 created: '2026-09-06'
 modified: '2026-09-06'
 tags:
 - Company
-apis: []
+- Biomaterials
+- Life Sciences
+- Cosmetics
+- Medical Devices
+- Exosomes
+- Manufacturing
+- E-Commerce
+- South Korea
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: ABio Materials WebMCP Tools
+  description: >-
+    A live, anonymous, agent-callable WebMCP surface served from the North American
+    storefront and discovered through the site's RFC 9727 api-catalog. Six tools with
+    JSON Schema inputs expose site identity, deep content search, page retrieval and a
+    full sitemap. It is platform-authored - produced by a WordPress plugin, not designed
+    by the company - and it exposes site content rather than the company's biomaterials
+    business. It is recorded because it is genuinely reachable and callable today.
+  humanURL: https://a-biousa.com/
+  image: https://a-biousa.com/storage/2026/01/social-share-by-a-bio-usa-materials-in-tustin-ca.png
+  baseURL: https://a-biousa.com/wp-json/g99-webmcp/v1
+  tags:
+  - MCP
+  - Agents
+  - Content
+  properties:
+  - type: MCPServer
+    url: mcp/abiomaterials-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/abiomaterials-tool-crosswalk.yml
+- name: ABio Materials Store API
+  description: >-
+    The WooCommerce Store API as deployed on the North American storefront. It serves the
+    company's real product catalogue - 39 products with prices, stock, categories, brands,
+    attributes and reviews - anonymously over HTTPS. Read-only for public callers; the
+    cart and checkout routes exist but are a browser commerce flow, not a documented API.
+  humanURL: https://a-biousa.com/shop/
+  image: https://a-biousa.com/storage/2026/01/social-share-by-a-bio-usa-materials-in-tustin-ca.png
+  baseURL: https://a-biousa.com/wp-json/wc/store/v1
+  tags:
+  - E-Commerce
+  - Products
+  - Catalog
+  properties:
+  - type: DataModel
+    url: data-model/abiomaterials-data-model.yml
+- name: ABio Materials Site Content API
+  description: >-
+    The WordPress REST content API on the storefront host, serving posts, pages and
+    taxonomies anonymously. Undocumented by the company; recorded from the live route
+    index at https://a-biousa.com/wp-json/, which registers 1,002 routes across 44
+    namespaces.
+  humanURL: https://a-biousa.com/blogs/
+  image: https://a-biousa.com/storage/2026/01/social-share-by-a-bio-usa-materials-in-tustin-ca.png
+  baseURL: https://a-biousa.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Blog
+  properties:
+  - type: Conventions
+    url: conventions/abiomaterials-conventions.yml
 common:
+- type: DomainSecurity
+  url: security/abiomaterials-domain-security.yml
 - type: Website
-  url: https://equityzen.com/company/abiomaterials
+  url: https://a-bio.co.kr/
+- type: Blog
+  url: https://a-biousa.com/blogs/
+- type: Support
+  url: https://a-biousa.com/contact-us/
+- type: Login
+  url: https://a-biousa.com/user-login/
+- type: Pricing
+  url: https://a-biousa.com/shop/
+- type: TermsOfService
+  url: https://a-biousa.com/terms-conditions/
+- type: PrivacyPolicy
+  url: https://a-biousa.com/privacy-policy/
+- type: WellKnown
+  url: well-known/abiomaterials-well-known.yml
+- type: MCPServer
+  url: mcp/abiomaterials-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/abiomaterials-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/abiomaterials-llms.txt
+- type: Conformance
+  url: conformance/abiomaterials-conformance.yml
+- type: ErrorCatalog
+  url: errors/abiomaterials-error-codes.yml
+- type: Conventions
+  url: conventions/abiomaterials-conventions.yml
+- type: DataModel
+  url: data-model/abiomaterials-data-model.yml
+- type: Lifecycle
+  url: lifecycle/abiomaterials-lifecycle.yml
+- type: Plans
+  url: plans/abiomaterials-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/abiomaterials-rate-limits.yml
+- type: Packages
+  url: packages/abiomaterials-packages.yml
+x-parent-relationship:
+  statement: >-
+    ABio materials USA Inc. (a-biousa.com) is the North American importer and distributor
+    for A-Bio Materials Co., Ltd. of Korea, stated on its own homepage - "products
+    manufactured by ABIO materials Co. in Korea" and "ABIO materials USA Inc. serves as
+    the official importer and distributor across North America" - and corroborated by its
+    published contact address using the Korean parent's own domain (jkkil@a-bio.co.kr).
+    This is why artifacts in this repo are served from a-biousa.com rather than a-bio.co.kr.
+  evidence: https://a-biousa.com/
+x-notes:
+  notes:
+  - >-
+    NOT WIRED ON PURPOSE - authentication/abiomaterials-authentication.yml exists and is
+    accurate, but no `Authentication` pointer is emitted: the artifact records that the
+    company documents no authentication at all, and the scored check asserts that the
+    PROVIDER publishes auth documentation. Wiring it would credit an absence as a presence.
+  - >-
+    a-bio.co.kr is a SOFT-404 CATCH-ALL. Every path returns HTTP 200 with the same
+    3,018-byte HTML error page; verified byte-identical against a nonsense control path.
+    No probe result from that host may be read from its status code alone.
+  - >-
+    No OpenAPI, Swagger, GraphQL, AsyncAPI, gRPC/Protobuf or WSDL contract is published on
+    any host. Contract discovery covered /openapi.json, /openapi.yaml, /swagger.json,
+    /api-docs, /docs, /redoc, /graphql and ?wsdl on all four hosts.
+  - >-
+    No A2A agent card is served. /.well-known/agent-card.json and /.well-known/agent.json
+    return 404 on a-biousa.com and a soft-404 on a-bio.co.kr, so nothing was written to a2a/.
+x-enrichment:
+  date: '2026-09-06'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v3

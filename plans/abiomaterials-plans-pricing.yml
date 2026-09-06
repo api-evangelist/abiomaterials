@@ -1,0 +1,34 @@
+generated: '2026-09-06'
+method: searched
+source: https://a-biousa.com/shop/
+name: Abiomaterials plans and pricing
+description: >-
+  A-Bio Materials sells physical exosome-derived skincare and medical materials,
+  not API access. There is no API plan, tier, quota or overage of any kind, on
+  either the Korean parent site or the North American storefront. Product prices
+  are published on the storefront and are readable anonymously through the
+  WooCommerce Store API, but that is product pricing, not an API price list.
+plan_count: 0
+plans: []
+api_pricing_published: false
+product_pricing_published: true
+product_pricing:
+  human_url: https://a-biousa.com/shop/
+  machine_url: https://a-biousa.com/wp-json/wc/store/v1/products
+  currency_source: >-
+    Each product's prices object carries currency metadata, expressed in the
+    smallest unit of the currency (per the live Store API schema).
+  catalogue_size_observed: 39
+  catalogue_size_evidence: 'X-WP-Total: 39'
+note: >-
+  plan_count is a real zero, not an unchecked field: the pricing search covered
+  the storefront, the B2B account page, the contact page and the Korean parent
+  site, and none offers paid API access.
+evidence:
+- url: https://a-biousa.com/shop/
+  status: 200
+- url: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=2
+  status: 200
+- url: https://a-biousa.com/your-account/
+  status: 200
+checked: '2026-09-06'

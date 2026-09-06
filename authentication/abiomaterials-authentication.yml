@@ -1,0 +1,73 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Live unauthenticated requests against every public surface on
+  https://a-biousa.com/wp-json/. No OpenAPI securitySchemes exist to derive
+  from - the provider publishes no specification - so every statement here is
+  an observed response, not a documented claim.
+name: Abiomaterials authentication profile
+description: >-
+  There is no developer authentication programme. No API keys, no OAuth, no
+  developer signup, no documented auth page anywhere on either the Korean parent
+  site or the North American storefront. What exists is a WordPress/WooCommerce
+  installation whose read surfaces answer anonymously and whose write and admin
+  surfaces are refused with the platform's own session check.
+documented: false
+docs: null
+schemes:
+- id: none-anonymous
+  type: none
+  applies_to:
+  - GET /wp-json/wc/store/v1/products
+  - GET /wp-json/wc/store/v1/products/categories
+  - GET /wp-json/wp/v2/posts
+  - GET /wp-json/g99-webmcp/v1/manifest
+  - POST /wp-json/g99-webmcp/v1/execute
+  - GET /wp-json/.well-known/api-catalog
+  evidence: >-
+    All returned HTTP 200 with real bodies to requests carrying no credentials
+    of any kind, on 2026-09-06.
+- id: wordpress-session
+  type: cookie+nonce
+  header: X-WP-Nonce
+  applies_to:
+  - POST /wp-json/mcp/mcp-adapter-default-server
+  - GET /wp-json/wp-abilities/v1/abilities
+  - PATCH /wp-json/wp/v2/settings
+  description: >-
+    WordPress' own logged-in cookie plus a nonce. Unauthenticated calls are
+    refused with HTTP 401 {"code":"rest_forbidden","message":"Sorry, you are not
+    allowed to do that.","data":{"status":401}} and NO WWW-Authenticate header,
+    so there is no discoverable challenge for an agent to follow.
+  nonce_endpoint: https://a-biousa.com/wp-json/g99-webmcp/v1/nonce
+  nonce_evidence: >-
+    GET returned HTTP 200 {"nonce":"...","expires":"<ISO8601>","header":"X-WP-Nonce"}
+    anonymously; the nonce it issues is a visitor nonce, not a credential.
+- id: customer-account
+  type: human-login
+  url: https://a-biousa.com/user-login/
+  description: >-
+    A B2B customer account login for the storefront. It is a human commerce
+    login, not a developer or API credential; there is no token issuance,
+    no key management page and no scope model behind it.
+oauth: false
+openid_connect: false
+mutual_tls: false
+api_keys: false
+gaps:
+- No authentication documentation is published on any host.
+- >-
+  The gated MCP endpoint returns 401 with no WWW-Authenticate header, so an
+  agent cannot discover how to authenticate even in principle.
+evidence:
+- url: https://a-biousa.com/wp-json/wc/store/v1/products?per_page=2
+  status: 200
+- url: https://a-biousa.com/wp-json/mcp/mcp-adapter-default-server
+  status: 401
+- url: https://a-biousa.com/wp-json/wp-abilities/v1/abilities
+  status: 401
+- url: https://a-biousa.com/wp-json/g99-webmcp/v1/nonce
+  status: 200
+- url: https://a-biousa.com/user-login/
+  status: 200
+checked: '2026-09-06'
