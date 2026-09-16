@@ -70,6 +70,10 @@ apis:
   baseURL: https://a-biousa.com/wp-json/wc/store/v1
   tags:
   - E-Commerce
+  - Product
+  - Catalog
+  tags_raw:
+  - E-Commerce
   - Products
   - Catalog
   properties:
