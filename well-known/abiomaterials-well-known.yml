@@ -1,31 +1,25 @@
 generated: '2026-09-06'
 method: probed
-source: >-
-  Direct HTTPS probes of the named /.well-known/ path list on every host this
-  record knows: the Korean parent site (a-bio.co.kr, www.a-bio.co.kr) and the
-  North American subsidiary that operates the company's storefront and its only
-  machine-readable surface (a-biousa.com, www.a-biousa.com).
+source: 'Direct HTTPS probes of the named /.well-known/ path list on every host this record knows: the
+  Korean parent site (a-bio.co.kr, www.a-bio.co.kr) and the North American subsidiary that operates the
+  company''s storefront and its only machine-readable surface (a-biousa.com, www.a-biousa.com).'
 name: Abiomaterials well-known documents
-description: >-
-  One real document was served. https://a-biousa.com/.well-known/api-catalog
-  returns an RFC 9727 linkset (Content-Type application/linkset+json) that
-  anchors on https://a-biousa.com/ and advertises two service links: a
-  service-desc pointing at the WebMCP tool manifest and a service-endpoint
-  pointing at the WebMCP execute endpoint. Every other named path missed.
-  IMPORTANT — the Korean parent host a-bio.co.kr answers HTTP 200 for EVERY
-  path with the same 3,018-byte HTML error page ("Error ! 페이지를 찾을 수
-  없습니다"); byte-identical bodies were confirmed against a nonsense control
-  path, so all of its 200s are soft-404s and are recorded as misses, not hits.
+description: 'One real document was served. https://a-biousa.com/.well-known/api-catalog returns an RFC
+  9727 linkset (Content-Type application/linkset+json) that anchors on https://a-biousa.com/ and advertises
+  two service links: a service-desc pointing at the WebMCP tool manifest and a service-endpoint pointing
+  at the WebMCP execute endpoint. Every other named path missed. IMPORTANT — the Korean parent host a-bio.co.kr
+  answers HTTP 200 for EVERY path with the same 3,018-byte HTML error page ("Error ! 페이지를 찾을 수 없습니다");
+  byte-identical bodies were confirmed against a nonsense control path, so all of its 200s are soft-404s
+  and are recorded as misses, not hits.'
 hosts:
 - host: a-biousa.com
-  note: >-
-    North American subsidiary (ABio materials USA Inc.); WordPress/WooCommerce.
-    The only host in this record serving a real well-known document.
+  note: North American subsidiary (ABio materials USA Inc.); WordPress/WooCommerce. The only host in this
+    record serving a real well-known document.
   documents:
   - path: /.well-known/api-catalog
     status: 200
     content_type: application/linkset+json; charset=utf-8
-    file: well-known/abiomaterials-api-catalog.json
+    file: abiomaterials-api-catalog.json
     document: true
     note: RFC 9727 API catalog linkset naming the WebMCP manifest and execute endpoint.
   - path: /.well-known/security.txt
@@ -89,11 +83,9 @@ hosts:
     status: 404
     document: false
 - host: a-bio.co.kr
-  note: >-
-    Korean parent site. SOFT-404 CATCH-ALL — every path returns HTTP 200 with an
-    identical 3,018-byte HTML error page. Verified against the control path
-    /zzz-does-not-exist-12345, which returned a byte-identical body. All 200s
-    below are misses; none is a document.
+  note: Korean parent site. SOFT-404 CATCH-ALL — every path returns HTTP 200 with an identical 3,018-byte
+    HTML error page. Verified against the control path /zzz-does-not-exist-12345, which returned a byte-identical
+    body. All 200s below are misses; none is a document.
   documents:
   - path: /.well-known/api-catalog
     status: 200
