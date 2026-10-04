@@ -59,41 +59,23 @@ apis:
     url: mcp/abiomaterials-mcp.yml
   - type: ToolCrosswalk
     url: mcp/abiomaterials-tool-crosswalk.yml
-- name: ABio Materials Store API
-  description: >-
-    The WooCommerce Store API as deployed on the North American storefront. It serves the
-    company's real product catalogue - 39 products with prices, stock, categories, brands,
-    attributes and reviews - anonymously over HTTPS. Read-only for public callers; the
-    cart and checkout routes exist but are a browser commerce flow, not a documented API.
-  humanURL: https://a-biousa.com/shop/
-  image: https://a-biousa.com/storage/2026/01/social-share-by-a-bio-usa-materials-in-tustin-ca.png
-  baseURL: https://a-biousa.com/wp-json/wc/store/v1
+  x-surface: platform-generated
+  x-platform: wordpress
+  x-platform-surface: rest
+- aid: abiomaterials:a-biousa-com-website-wordpress-rest
+  name: A-Bio Materials Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the A-Bio Materials website at a-biousa.com:
+    the route index of the site''s content management system, catalogued as one site surface rather than
+    as separate APIs.'
+  baseURL: https://a-biousa.com/wp-json
   tags:
-  - E-Commerce
-  - Product
-  - Catalog
-  tags_raw:
-  - E-Commerce
-  - Products
-  - Catalog
+  - WordPress
+  x-surface: platform-generated
   properties:
-  - type: DataModel
-    url: data-model/abiomaterials-data-model.yml
-- name: ABio Materials Site Content API
-  description: >-
-    The WordPress REST content API on the storefront host, serving posts, pages and
-    taxonomies anonymously. Undocumented by the company; recorded from the live route
-    index at https://a-biousa.com/wp-json/, which registers 1,002 routes across 44
-    namespaces.
-  humanURL: https://a-biousa.com/blogs/
-  image: https://a-biousa.com/storage/2026/01/social-share-by-a-bio-usa-materials-in-tustin-ca.png
-  baseURL: https://a-biousa.com/wp-json/wp/v2
-  tags:
-  - Content
-  - Blog
-  properties:
-  - type: Conventions
-    url: conventions/abiomaterials-conventions.yml
+  - type: Documentation
+    url: https://a-biousa.com/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 common:
 - type: DomainSecurity
   url: security/abiomaterials-domain-security.yml
