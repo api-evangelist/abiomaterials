@@ -1,4 +1,4 @@
-# Abiomaterials
+# A-Bio Materials
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,34 +64,110 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-A-Bio Materials Co., Ltd. (에이바이오머티리얼즈) is a South Korean life-science company, founded in
-2020, that develops and manufactures exosome-derived bioactive materials for cosmetics,
-aesthetics and medical devices. Its North American arm, ABio materials USA Inc. of Tustin,
-California, is the official importer and distributor for the region and operates the
-company's English-language storefront.
+A-Bio Materials Co., Ltd. (에이바이오머티리얼즈) is a South Korean life-science company, founded in 2020 and led by founder and CEO Sijun Park, that develops and manufactures exosome-derived bioactive materials for cosmetics, aesthetics and medical devices. It produces plant-, human- and microbial-derived exosome formulations and PDRN raw materials through its own Exo-traction, Celltivation and Escentraction purification and cultivation processes, supplying skincare and medical-device manufacturers with ingredients for cell signalling, inflammation reduction, collagen synthesis and tissue regeneration. Its North American arm, ABio materials USA Inc. of Tustin, California, is the official importer and distributor for the region and operates the company's English-language storefront. A-Bio Materials runs no developer programme and publishes no API specification; the machine-readable surfaces recorded in this profile are the WordPress, WooCommerce and WebMCP endpoints its North American storefront serves.
 
-- Company site (Korea): https://a-bio.co.kr/
-- North American storefront: https://a-biousa.com/
-- Secondary-market listing this record was harvested from: https://equityzen.com/company/abiomaterials
+**Areas:** Company · Biomaterials · Life Sciences · Cosmetics · Medical Devices · Exosomes · Manufacturing · E-Commerce · South Korea
 
-## What this profile found
+## A-Bio Materials on APIs.io
 
-A-Bio Materials runs **no developer programme**. There is no developer portal, API
-documentation, API reference, SDK, CLI, sandbox, status page or changelog, and no OpenAPI,
-Swagger, GraphQL, AsyncAPI, gRPC or WSDL contract on any host.
+Everything profiled for A-Bio Materials is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/abiomaterials/](https://apis.io/providers/abiomaterials/)** — or go straight to one of the APIs or properties below.
 
-What the company does serve — verified live on 2026-09-06 — are machine-readable surfaces
-produced by the WordPress / WooCommerce stack behind its North American storefront. These are
-**platform-authored**, not designed by the company, and they describe site content and the
-product catalogue rather than a business API:
+### APIs (2)
 
-- An RFC 9727 API catalog at `https://a-biousa.com/.well-known/api-catalog` (the only
-  `/.well-known/` document served on any of the four hosts probed).
-- A live, anonymous WebMCP tool surface — manifest plus execute endpoint — declaring six
-  tools with JSON Schema inputs. `get_site_context` was invoked anonymously and returned
-  real data, so this is a verified reachable agent surface.
-- A JSON-RPC MCP endpoint that is auth-gated: `tools/list` returns HTTP 401.
-- The WooCommerce Store API, serving 39 products with prices and stock anonymously.
+- [ABio Materials WebMCP Tools](https://apis.io/apis/abiomaterials/abio-materials-webmcp-tools/) — A live, anonymous, agent-callable WebMCP surface served from the North American storefront and discovered through the site's RFC 9727 api-catalog. Six tools…
+- [A-Bio Materials Website (WordPress REST)](https://apis.io/apis/abiomaterials/a-biousa-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the A-Bio Materials website at a-biousa.com: the route index of the site's content management system, catalogued…
 
-Note that the Korean parent host `a-bio.co.kr` is a **soft-404 catch-all** — every path
-returns HTTP 200 with the same HTML error page — so its status codes carry no information.
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Abiomaterials WebMCP tool surface](https://apis.io/servers/abiomaterials/abiomaterials-webmcp-tool-surface/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Abiomaterials Authentication](https://apis.io/security/abiomaterials/abiomaterials-authentication/)
+- [Abiomaterials Domain Security](https://apis.io/security/abiomaterials/abiomaterials-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Abiomaterials Plans Pricing](https://apis.io/plans/abiomaterials/abiomaterials-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Abiomaterials Rate Limits](https://apis.io/rate-limits/abiomaterials/abiomaterials-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://a-bio.co.kr/)
+- [Pricing](https://a-biousa.com/shop/)
+- [Support](https://a-biousa.com/contact-us/)
+- [Blog](https://a-biousa.com/blogs/)
+- [Terms of service](https://a-biousa.com/terms-conditions/)
+- [Privacy policy](https://a-biousa.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 19.6** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 16.7 |
+| Access clarity | 38.2 |
+
+**Agent readiness 10.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 14.8** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/abiomaterials/](https://apis.io/providers/abiomaterials/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for A-Bio Materials: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/abiomaterials/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
